@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditFragment"
+    android:background="#61C7E6">
+    <com.example.breathingexerciseview.BreathingCircleView
+        android:layout_width="250dp"
+        android:layout_height="250dp"/>
+
+    <TextView
+        android:text="inhale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.example.breathingexerciseview.CounterView
+        android:id="@+id/inhaleCounter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="hold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.example.breathingexerciseview.CounterView
+        android:id="@+id/hold1Counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="exhale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.example.breathingexerciseview.CounterView
+        android:id="@+id/exhaleCounter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="hold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.example.breathingexerciseview.CounterView
+        android:id="@+id/hold2Counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
