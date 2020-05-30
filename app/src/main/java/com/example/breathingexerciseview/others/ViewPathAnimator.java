@@ -1,4 +1,4 @@
-package com.example.breathingexerciseview;
+package com.example.breathingexerciseview.others;
 
 import android.graphics.Path;
 import android.graphics.PathMeasure;

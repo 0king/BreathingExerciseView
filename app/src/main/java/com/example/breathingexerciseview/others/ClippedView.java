@@ -1,4 +1,4 @@
-package com.example.breathingexerciseview;
+package com.example.breathingexerciseview.others;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,6 +11,8 @@ import android.graphics.Region;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.example.breathingexerciseview.R;
 
 /**
  * Custom view that implements the drawing of clipped shapes.

@@ -1,4 +1,4 @@
-package com.example.breathingexerciseview;
+package com.example.breathingexerciseview.others;
 
 import android.animation.Animator;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
+
+import com.example.breathingexerciseview.R;
 
 /**
  * simple custom view of a beating heart which is achieved by a scaling animation

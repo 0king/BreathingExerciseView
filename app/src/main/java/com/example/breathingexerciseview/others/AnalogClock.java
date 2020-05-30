@@ -1,4 +1,4 @@
-package com.example.breathingexerciseview;
+package com.example.breathingexerciseview.others;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +12,8 @@ import android.os.Build;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.example.breathingexerciseview.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

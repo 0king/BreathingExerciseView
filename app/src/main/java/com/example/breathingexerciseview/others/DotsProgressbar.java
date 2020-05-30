@@ -1,4 +1,4 @@
-package com.example.breathingexerciseview;
+package com.example.breathingexerciseview.others;
 
 import android.content.Context;
 import android.graphics.Canvas;

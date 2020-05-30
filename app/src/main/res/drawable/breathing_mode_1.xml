@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <!-- NOTE: order is important (the first matching state(s) is what is rendered) -->
+    <item
+        android:state_selected="true"
+        android:drawable="@drawable/ic_heart_red_24dp" />
+    <item
+        android:drawable="@drawable/ic_play_circle_filled_black_24dp" />
+
+</selector>

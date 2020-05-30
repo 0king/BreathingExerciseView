@@ -1,51 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditFragment"
-    android:background="#61C7E6">
-    <com.example.breathingexerciseview.BreathingCircleView
-        android:layout_width="250dp"
-        android:layout_height="250dp"/>
+    android:background="@drawable/gradient_dark_blue_blue"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:text="inhale"
+        android:id="@+id/tvEditLabel"
+        android:textColor="#FFF"
+        android:text="Edit your bubble"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.example.breathingexerciseview.BreathingCircleView
+        android:id="@+id/breathingView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEditLabel"
+        app:layout_constraintBottom_toTopOf="@id/tvSettingsLabel"/>
+
+    <TextView
+        android:id="@+id/tvSettingsLabel"
+        android:text="Breathing settings"
+        android:textColor="#FFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ibDefault"/>
+
+    <ImageButton
+        android:id="@+id/ibDefault"
+        android:src="@drawable/breathing_mode_1"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ibPranayama"
+        app:layout_constraintBottom_toTopOf="@id/tvInhaleLabel"/>
+    <ImageButton
+        android:id="@+id/ibPranayama"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toTopOf="@id/tvInhaleLabel"
+        app:layout_constraintStart_toEndOf="@id/ibDefault"
+        app:layout_constraintEnd_toStartOf="@id/ibSquare"/>
+    <ImageButton
+        android:id="@+id/ibSquare"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toTopOf="@id/tvInhaleLabel"
+        app:layout_constraintStart_toEndOf="@id/ibPranayama"
+        app:layout_constraintEnd_toStartOf="@id/ibUjjayi"/>
+    <ImageButton
+        android:id="@+id/ibUjjayi"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toTopOf="@id/tvInhaleLabel"
+        app:layout_constraintStart_toEndOf="@id/ibSquare"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalHalf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4"/>
+
+    <!-- inhale -->
+    <TextView
+        android:id="@+id/tvInhaleLabel"
+        android:text="Inhale"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVerticalHalf"
+        app:layout_constraintBottom_toTopOf="@id/tvHold1Label"/>
+
     <com.example.breathingexerciseview.CounterView
         android:id="@+id/inhaleCounter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="hold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/guidelineVerticalHalf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvHold1Label"/>
+    <TextView
+        android:id="@+id/tvSecsLabel1"
+        android:text="Secs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/inhaleCounter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvHold1Label"/>
+
+    <!-- hold 1 = inhale pause -->
+    <TextView
+        android:id="@+id/tvHold1Label"
+        android:text="Inhale pause"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVerticalHalf"
+        app:layout_constraintBottom_toTopOf="@id/tvExhaleLabel"/>
     <com.example.breathingexerciseview.CounterView
         android:id="@+id/hold1Counter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="exhale"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/guidelineVerticalHalf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvExhaleLabel"/>
+    <TextView
+        android:id="@+id/tvSecsLabel2"
+        android:text="Secs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/hold1Counter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvExhaleLabel"/>
+
+    <!-- exhale -->
+    <TextView
+        android:id="@+id/tvExhaleLabel"
+        android:text="exhale"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVerticalHalf"
+        app:layout_constraintBottom_toTopOf="@id/tvHold2"/>
     <com.example.breathingexerciseview.CounterView
         android:id="@+id/exhaleCounter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="hold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/guidelineVerticalHalf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvHold2"/>
+    <TextView
+        android:id="@+id/tvSecsLabel3"
+        android:text="Secs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/exhaleCounter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvHold2"/>
+
+    <!--hold 2 -->
+    <TextView
+        android:id="@+id/tvHold2"
+        android:text="hold 2"
+        android:layout_width="0dp"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVerticalHalf"/>
     <com.example.breathingexerciseview.CounterView
         android:id="@+id/hold2Counter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/guidelineVerticalHalf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+        android:id="@+id/tvSecsLabel4"
+        android:text="Secs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/hold2Counter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

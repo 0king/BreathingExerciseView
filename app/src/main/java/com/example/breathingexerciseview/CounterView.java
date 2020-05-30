@@ -12,14 +12,12 @@ import androidx.annotation.StringRes;
 
 public class CounterView extends LinearLayout implements View.OnClickListener {
 
-
     public static final String TAG = CounterView.class.getSimpleName();
     private TextView itemCounterValue;
     private Button incButton;
     private Button decButton;
     private LinearLayout rootView;
     private CounterListener listener;
-
 
     public CounterView(Context context) {
         super(context);
@@ -35,7 +33,6 @@ public class CounterView extends LinearLayout implements View.OnClickListener {
     public CounterView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
-
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
@@ -46,9 +43,7 @@ public class CounterView extends LinearLayout implements View.OnClickListener {
         this.decButton = (Button) findViewById(R.id.dec_button);
         this.incButton.setOnClickListener(this);
         this.decButton.setOnClickListener(this);
-
     }
-
 
     public CounterView setStartCounterValue(String startValue) {
         if (this.itemCounterValue != null)
@@ -79,7 +74,6 @@ public class CounterView extends LinearLayout implements View.OnClickListener {
     }
 
     public CounterView setColor(@ColorRes int left, @ColorRes int right, @ColorRes int text) {
-
         this.incButton.setBackgroundColor(getColor(right));
         this.decButton.setBackgroundColor(getColor(left));
         this.itemCounterValue.setTextColor(getColor(text));
@@ -113,7 +107,6 @@ public class CounterView extends LinearLayout implements View.OnClickListener {
 
     public interface CounterListener {
         void onIncClick(String value);
-
         void onDecClick(String value);
     }
 

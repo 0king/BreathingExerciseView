@@ -1,4 +1,4 @@
-package com.example.breathingexerciseview
+package com.example.breathingexerciseview.others
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
+import com.example.breathingexerciseview.R
 
 class IndicatorView @JvmOverloads constructor(
     context: Context,
@@ -30,23 +31,46 @@ class IndicatorView @JvmOverloads constructor(
     private var currentSweepAngle = 0
 
     private val paint: Paint = Paint()
-    private val greyColor = ContextCompat.getColor(context, R.color.white)
+    private val greyColor = ContextCompat.getColor(context,
+        R.color.white
+    )
     private var arcs = emptyList<Arc>()
 
-    private val colorMap = mapOf(Color.WHITE to ContextCompat.getColor(context, R.color.mtg_white),
-        Color.BLUE to ContextCompat.getColor(context, R.color.mtg_blue),
-        Color.BLACK to ContextCompat.getColor(context, R.color.mtg_black),
-        Color.RED to ContextCompat.getColor(context, R.color.mtg_red),
-        Color.GREEN to ContextCompat.getColor(context, R.color.mtg_green))
+    private val colorMap = mapOf(
+        Color.WHITE to ContextCompat.getColor(context,
+            R.color.mtg_white
+        ),
+        Color.BLUE to ContextCompat.getColor(context,
+            R.color.mtg_blue
+        ),
+        Color.BLACK to ContextCompat.getColor(context,
+            R.color.mtg_black
+        ),
+        Color.RED to ContextCompat.getColor(context,
+            R.color.mtg_red
+        ),
+        Color.GREEN to ContextCompat.getColor(context,
+            R.color.mtg_green
+        ))
 
     private fun computeArcs() {
         arcs = if (colors.isEmpty()) {
-            listOf(Arc(0f, 360f, greyColor))
+            listOf(
+                Arc(
+                    0f,
+                    360f,
+                    greyColor
+                )
+            )
         } else {
             val sweepSize: Float = 360f / colors.size
             colors.mapIndexed { index, color ->
                 val startAngle = index * sweepSize
-                Arc(start = startAngle, sweep = sweepSize, color = colorMap.getValue(color))
+                Arc(
+                    start = startAngle,
+                    sweep = sweepSize,
+                    color = colorMap.getValue(color)
+                )
             }
         }
         startAnimation()
