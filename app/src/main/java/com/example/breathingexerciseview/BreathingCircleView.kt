@@ -38,7 +38,7 @@ class BreathingCircleView @JvmOverloads constructor(
     var centerY:Float = 0f
     var centerX:Float = 0f
     var innerCircleRadius:Float = 0f
-    var innerCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    var innerCirclePaint = Paint(ANTI_ALIAS_FLAG).apply {
         color = Color.BLUE
         style = Paint.Style.FILL_AND_STROKE
     }
@@ -46,7 +46,7 @@ class BreathingCircleView @JvmOverloads constructor(
     //outer cirle
     var outerCircleRadius : Float = 0f
     var outerCircleStrokeWidth : Float = 7.toPx()
-    val outerCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    val outerCirclePaint = Paint(ANTI_ALIAS_FLAG).apply {
         color = Color.MAGENTA
         style = Paint.Style.STROKE
         strokeWidth = outerCircleStrokeWidth
@@ -59,10 +59,11 @@ class BreathingCircleView @JvmOverloads constructor(
     lateinit var rotatingPoint : PointF
     var orbitingCircleRadius:Float = 0f
     var swipeAngle = -90f
-    var smallCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    var smallCirclePaint = Paint(ANTI_ALIAS_FLAG).apply {
         color = Color.RED
     }
-    val paint1 = Paint().apply { color = Color.DKGRAY }
+    val pointPaint = Paint(ANTI_ALIAS_FLAG).apply { color = Color.WHITE }
+    val rotatingPointPaint = Paint(ANTI_ALIAS_FLAG).apply { color = Color.YELLOW }
     val paint2 = Paint().apply { color = Color.GRAY }
     val paint3 = Paint().apply { color = Color.GREEN }
     val paint4 = Paint().apply { color = Color.BLUE }
@@ -80,10 +81,11 @@ class BreathingCircleView @JvmOverloads constructor(
     var theta1:Double = 0.0
     var theta2:Double = 0.0
     var theta3:Double = 0.0
+    var theta4:Double = 0.0
 
     var centerText = "breathe in"
     val textPaint = Paint(ANTI_ALIAS_FLAG).apply {
-        color = Color.CYAN
+        color = Color.WHITE
         textAlign = Paint.Align.CENTER
         textSize = 16.toPx()
     }
@@ -92,12 +94,12 @@ class BreathingCircleView @JvmOverloads constructor(
     lateinit var enclosingRect : RectF
 
     val arcPaint = Paint(ANTI_ALIAS_FLAG).apply {
-        color = Color.DKGRAY
+        color = Color.parseColor("#f55832")
         style = Paint.Style.STROKE
         strokeWidth = outerCircleStrokeWidth
     }
     val arcPaint2 = Paint(ANTI_ALIAS_FLAG).apply {
-        color = Color.MAGENTA
+        color = Color.parseColor("#98999a")
         style = Paint.Style.STROKE
         strokeWidth = outerCircleStrokeWidth
     }
@@ -230,7 +232,7 @@ class BreathingCircleView @JvmOverloads constructor(
         val side = Math.min(w, h)
         val availableRadius = side/2F
         outerCircleRadius = availableRadius / MAX_SCALE
-        val gap = outerCircleRadius / 10
+        val gap = outerCircleRadius / 9
         innerCircleRadius = outerCircleRadius - gap
 
         xScale = 1 / MAX_SCALE
@@ -238,9 +240,10 @@ class BreathingCircleView @JvmOverloads constructor(
 
         //smaller circle
         orbitingCircleCenterX = centerX
-        orbitingCircleCenterY = h/2 - outerCircleRadius
+        val y = h/2 - outerCircleRadius
+        orbitingCircleCenterY = y
 
-        firstPoint = PointF(w/2F, h/2 - outerCircleRadius)
+        firstPoint = PointF(centerX, y)
 
         orbitingCircleRadius = innerCircleRadius / 12
 
@@ -253,17 +256,18 @@ class BreathingCircleView @JvmOverloads constructor(
         val endX = centerX + outerCircleRadius //right
         val bottomY =  centerY + outerCircleRadius //bottom
         enclosingRect = RectF(startX, topY, endX, bottomY)
-        val shader = LinearGradient(startX,topY,endX,bottomY,Color.GRAY, Color.BLUE, Shader.TileMode.CLAMP)
-        innerCirclePaint.shader = shader
+        innerCirclePaint.shader = LinearGradient(startX,topY,endX,bottomY,
+            Color.parseColor("#ff7400"), Color.parseColor("#ffbb00"),
+            Shader.TileMode.CLAMP)
     }
 
     private fun calculatePoints(){
 
-        rotatingPoint = PointF(orbitingCircleCenterX, orbitingCircleCenterY)
+        //rotatingPoint = PointF(orbitingCircleCenterX, orbitingCircleCenterY)
 
         val totalSecs = inhaleSecs + exhaleSsecs + inhalePauseSecs + exhalePauseSecs
-        val perimeter = 2 * PI * outerCircleRadius
-        val arc1 = inhaleSecs / totalSecs * perimeter
+        //val perimeter = 2 * PI * outerCircleRadius
+        //val arc1 = inhaleSecs / totalSecs * perimeter
         theta1 = (inhaleSecs / totalSecs.toFloat()) * 2 * PI - PI/2
 
         val p2X = (centerX + outerCircleRadius * cos(theta1)).toFloat()
@@ -282,12 +286,16 @@ class BreathingCircleView @JvmOverloads constructor(
         val p4X = (centerX + outerCircleRadius * cos(theta3)).toFloat()
         val p4Y = (centerY + outerCircleRadius * sin(theta3)).toFloat()
         fourthPoint = PointF(p4X, p4Y)
+
+        //theta4 = 2*PI - theta3
     }
 
     private fun findNewCenter(){
         val radians = swipeAngle
-        orbitingCircleCenterX = (centerX + outerCircleRadius * cos(radians))
-        orbitingCircleCenterY = (centerY + outerCircleRadius * sin(radians))
+        if (radians != 0F){
+            orbitingCircleCenterX = (centerX + outerCircleRadius * cos(radians))
+            orbitingCircleCenterY = (centerY + outerCircleRadius * sin(radians))
+        }
         rotatingPoint = PointF(orbitingCircleCenterX, orbitingCircleCenterY)
     }
 
@@ -295,26 +303,34 @@ class BreathingCircleView @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas?.scale(xScale, yScale, centerX, centerY)
         canvas?.clipPath(outerCirclePath)
-        canvas?.drawPath(outerCirclePath, outerCirclePaint)
+        //canvas?.drawPath(outerCirclePath, outerCirclePaint)
         canvas?.drawCircle(centerX, centerY, innerCircleRadius, innerCirclePaint)
         findNewCenter()
         calculatePoints()
-        canvas?.drawArc(enclosingRect, -90f, 90+Math.toDegrees(theta1).toFloat(), false, arcPaint)
-        val stAng = Math.toDegrees(theta2).toFloat()
-        val swAng = Math.toDegrees(theta3-theta2).toFloat()
-        canvas?.drawArc(enclosingRect, stAng, swAng, false, arcPaint)
-        //todo - draw four arcs
+        val stAng1 = -90F
+        val swAng1 = 90+Math.toDegrees(theta1).toFloat()
+        canvas?.drawArc(enclosingRect, stAng1, swAng1, false, arcPaint)
+        val stAng2 = Math.toDegrees(theta1).toFloat()
+        val swAng2 = Math.toDegrees(theta2-theta1).toFloat()
+        canvas?.drawArc(enclosingRect, stAng2, swAng2, false, arcPaint2)
+        val stAng3 = Math.toDegrees(theta2).toFloat()
+        val swAng3 = Math.toDegrees(theta3-theta2).toFloat()
+        canvas?.drawArc(enclosingRect, stAng3, swAng3, false, arcPaint)
+        val stAng4 = Math.toDegrees(theta3).toFloat()
+        val swAng4 = Math.toDegrees(2*PI - theta3).toFloat()-90
+        canvas?.drawArc(enclosingRect, stAng4, swAng4, false, arcPaint2)
 
         if (inhaleSecs>0)
-            canvas?.drawCircle(firstPoint.x, firstPoint.y, orbitingCircleRadius, paint1)
+            canvas?.drawCircle(firstPoint.x, firstPoint.y, orbitingCircleRadius, pointPaint)
         if (inhalePauseSecs>0)
-            canvas?.drawCircle(secondPoint.x, secondPoint.y, orbitingCircleRadius, paint2)
+            canvas?.drawCircle(secondPoint.x, secondPoint.y, orbitingCircleRadius, pointPaint)
         if (exhaleSsecs>0)
-            canvas?.drawCircle(thirdPoint.x, thirdPoint.y, orbitingCircleRadius, paint3)
+            canvas?.drawCircle(thirdPoint.x, thirdPoint.y, orbitingCircleRadius, pointPaint)
         if (exhalePauseSecs>0)
-            canvas?.drawCircle(fourthPoint.x, fourthPoint.y, orbitingCircleRadius, paint4)
+            canvas?.drawCircle(fourthPoint.x, fourthPoint.y, orbitingCircleRadius, pointPaint)
 
-        canvas?.drawCircle(rotatingPoint.x, rotatingPoint.y, orbitingCircleRadius, smallCirclePaint)
+        //rotating point
+        canvas?.drawCircle(rotatingPoint.x, rotatingPoint.y, orbitingCircleRadius, rotatingPointPaint)
 
         //todo - outside of onDraw
         //use staticLayout

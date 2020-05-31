@@ -18,11 +18,11 @@ public class CounterView extends LinearLayout implements View.OnClickListener {
     private Button decButton;
     private LinearLayout rootView;
     private CounterListener listener;
+    private int minValue = 0;
 
     public CounterView(Context context) {
         super(context);
         init(context, null, 0);
-
     }
 
     public CounterView(Context context, AttributeSet attrs) {
@@ -80,6 +80,10 @@ public class CounterView extends LinearLayout implements View.OnClickListener {
         return this;
     }
 
+    public void setMin(int value){
+        minValue = value;
+    }
+
     private int getColor(@ColorRes int colorRes) {
         return getContext().getResources().getColor(colorRes);
     }
@@ -96,9 +100,8 @@ public class CounterView extends LinearLayout implements View.OnClickListener {
                 this.listener.onIncClick(this.itemCounterValue.getText().toString());
         } else if (i == R.id.dec_button) {
             value--;
-            if (value < 1) {
-                value = 1;
-            }
+            if (value < minValue) return; //value = minValue;
+            //if (value < 1) {value = 1;}
             this.itemCounterValue.setText(String.valueOf(value));
             if (this.listener != null)
                 this.listener.onDecClick(this.itemCounterValue.getText().toString());

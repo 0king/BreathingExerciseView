@@ -28,7 +28,7 @@ class EditFragment : Fragment() {
     lateinit var breathingView: BreathingCircleView
 
     var currentMode = MODE.DEFAULT
-    //var KEY_INHALE = "${currentMode}_INHALE"//not working
+    //var KEY_INHALE = "${currentMode}_INHALE"//calculated just once
     var KEY_INHALE = "_INHALE"
     var KEY_HOLD_1 = "_HOLD1"
     var KEY_EXHALE = "_EXHALE"
@@ -49,6 +49,12 @@ class EditFragment : Fragment() {
         ibSquare = rootView.findViewById(R.id.ibSquare)
         ibUjjayi = rootView.findViewById(R.id.ibUjjayi)
         breathingView = rootView.findViewById(R.id.breathingView)
+
+        counterView1.setMin(1)
+        counterView2.setMin(0)
+        counterView3.setMin(1)
+        counterView4.setMin(0)
+
         attachClickListeners()
 
         ibDefault.isSelected = true
@@ -119,38 +125,40 @@ class EditFragment : Fragment() {
 
     private fun onValueChange(key:Int, newValue: String?){
         val v = newValue?.toInt()?:1
+        val mode = currentMode.ordinal
         when(key){
             1 -> {
                 breathingView.inhaleSecs = v
-                save("${currentMode}_inhale", newValue)
+                save("${mode}_inhale", newValue)
             }
             2 -> {
                 breathingView.inhalePauseSecs = v
-                save("${currentMode}_hold1", newValue)
+                save("${mode}_hold1", newValue)
             }
             3 -> {
                 breathingView.exhaleSsecs = v
-                save("${currentMode}_exhale", newValue)
+                save("${mode}_exhale", newValue)
             }
             4 -> {
                 breathingView.exhalePauseSecs = v
-                save("${currentMode}_hold2", newValue)
+                save("${mode}_hold2", newValue)
             }
         }
         breathingView.invalidate()
     }
 
     private fun populateValues(){
-        val inhale = getValue("${currentMode}_inhale")
+        val mode = currentMode.ordinal
+        val inhale = getValue("${mode}_inhale")
         counterView1.setStartCounterValue(inhale)
         breathingView.inhaleSecs = inhale.toInt()
-        val hold1 = getValue("${currentMode}_hold1")
+        val hold1 = getValue("${mode}_hold1")
         counterView2.setStartCounterValue(hold1)
         breathingView.inhalePauseSecs = hold1.toInt()
-        val exhale = getValue("${currentMode}_exhale")
+        val exhale = getValue("${mode}_exhale")
         counterView3.setStartCounterValue(exhale)
         breathingView.exhaleSsecs = exhale.toInt()
-        val hold2 = getValue("${currentMode}_hold2")
+        val hold2 = getValue("${mode}_hold2")
         counterView4.setStartCounterValue(hold2)
         breathingView.exhalePauseSecs = hold2.toInt()
         breathingView.invalidate()

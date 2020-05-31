@@ -21,7 +21,12 @@
 
     <TextView
         android:id="@+id/tvLabel1"
-        android:text="Breathing practice"
+        android:text="Let's move on to some"
+        android:textColor="#2a142f"
+        android:textSize="22sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +35,25 @@
 
     <TextView
         android:id="@+id/tvLabel2"
-        android:text="Breathing practice"
+        android:text="Breathing Practice"
+        android:textStyle="bold"
+        android:textColor="#2a142f"
+        android:textSize="25sp"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvLabel3"/>
+    <TextView
+        android:id="@+id/tvLabel3"
+        android:text="Set time duration:"
+        android:textStyle="bold"
+        android:textColor="#4C2A53"
+        android:textSize="20sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +63,7 @@
     <NumberPicker
         android:id="@+id/numberPicker"
         android:theme="@style/NumberPickerTheme"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +72,7 @@
 
     <Button
         android:id="@+id/btnStart"
+        android:layout_margin="10dp"
         android:text="Start breathing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
